@@ -1,0 +1,1 @@
+La pagina usa grafiche CSS locali come fallback visivo. Sostituire in seguito con fotografie autorizzate di Anarkino, del Cinemino e dei lavori.
