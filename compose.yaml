@@ -21,8 +21,9 @@ services:
       - --auth
       - password
       - /home/coder/project
+    working_dir: /home/coder/project
     volumes:
-      - ./:/home/coder/project
+      - ./:/home/coder/project:rw
       - code-server-data:/home/coder/.local/share/code-server
 
 volumes:
