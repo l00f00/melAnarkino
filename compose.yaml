@@ -15,11 +15,6 @@ services:
     environment:
       PASSWORD: ${CODE_SERVER_PASSWORD:?Imposta CODE_SERVER_PASSWORD nel file .env}
       TZ: Europe/Rome
-    command: >-
-      code-server
-      --bind-addr 0.0.0.0:8080
-      --auth password
-      /home/coder/project
     volumes:
       - ./:/home/coder/project
       - code-server-data:/home/coder/.local/share/code-server
