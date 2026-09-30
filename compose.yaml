@@ -1,0 +1,28 @@
+services:
+  site:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+
+  code-server:
+    image: codercom/code-server:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      PASSWORD: ${CODE_SERVER_PASSWORD:?Imposta CODE_SERVER_PASSWORD nel file .env}
+      TZ: Europe/Rome
+    command: >-
+      code-server
+      --bind-addr 0.0.0.0:8080
+      --auth password
+      /home/coder/project
+    volumes:
+      - ./:/home/coder/project
+      - code-server-data:/home/coder/.local/share/code-server
+
+volumes:
+  code-server-data:
