@@ -22,6 +22,7 @@ services:
       - password
       - /home/coder/project
     working_dir: /home/coder/project
+    user: "1000:1000"
     volumes:
       - ./:/home/coder/project:rw
       - code-server-data:/home/coder/.local/share/code-server
