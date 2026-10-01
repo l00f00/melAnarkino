@@ -22,3 +22,5 @@
 
 /* Workshop horror CTA must remain clickable above the decorative connector. */
 .workshop-card .workshop-cta[href]{pointer-events:auto!important;cursor:pointer}
+.workshop-detail-signup{border-top:1px dashed var(--line);margin-top:36px;padding-top:32px;text-align:center}.workshop-detail-signup-button{display:inline-flex;align-items:center;gap:18px;background:var(--yellow);color:var(--black);padding:16px 24px;text-decoration:none;font-size:.78rem;font-weight:900;letter-spacing:.12em}.workshop-detail-signup-button span{font-size:1.25rem}.workshop-detail-signup p{margin:14px 0 0;color:#bcb7ad;font-size:.82rem}.workshop-detail-signup-button:hover{background:var(--cream)}
+@media(max-width:800px){.workshop-detail-signup{margin-top:28px;padding-top:26px}.workshop-detail-signup-button{width:100%;justify-content:center}}
