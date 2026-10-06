@@ -109,3 +109,16 @@ section[id]{scroll-margin-top:24px}
 .arcade-fire,.arcade-exit{pointer-events:auto;touch-action:manipulation;border:2px solid var(--yellow);background:var(--black);color:var(--yellow);min-height:48px;padding:12px 16px;font:900 .7rem var(--sans);text-transform:uppercase;cursor:pointer}
 .arcade-fire{margin-left:auto;border-radius:50%;width:78px;height:78px;background:var(--red);border-color:var(--red);color:var(--cream)}
 .arcade-exit{position:absolute;bottom:116px;right:0}
+
+/* Fumetto arcade: effetti temporanei, tutti ripristinati a fine partita. */
+.arcade-hit,.arcade-hit *{visibility:hidden!important}
+.arcade-pop{position:fixed;transform:translate(-50%,-50%);padding:12px 18px;background:var(--yellow);color:var(--black);font:900 1.5rem var(--sans);clip-path:polygon(0 30%,25% 25%,20% 0,50% 16%,75% 0,78% 28%,100% 35%,85% 60%,100% 85%,65% 80%,50% 100%,35% 80%,0 90%,15% 55%);animation:arcade-pop .65s ease-out forwards}
+.arcade-finale{background:rgba(34,34,34,.88);display:grid;place-items:center}
+.arcade-finale .arcade-ship,.arcade-finale .arcade-laser,.arcade-finale .arcade-joystick,.arcade-finale .arcade-fire{display:none}
+.arcade-kaboom{width:min(90vw,740px);min-height:min(65vw,460px);padding:70px 30px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:var(--yellow);color:var(--black);clip-path:polygon(0 25%,22% 24%,13% 0,40% 15%,54% 0,65% 17%,90% 3%,82% 30%,100% 35%,86% 53%,100% 80%,72% 77%,75% 100%,52% 86%,29% 100%,30% 79%,0 86%,12% 55%);font:900 clamp(1rem,4vw,2.4rem)/1 var(--sans);animation:arcade-boom .5s cubic-bezier(.2,.8,.3,1.2) both}
+.arcade-kaboom strong{color:var(--red);text-transform:uppercase;font-size:clamp(2.5rem,11vw,6rem);text-shadow:3px 3px 0 var(--black);letter-spacing:-.04em}
+.arcade-quake main{animation:arcade-quake .45s ease-out}
+@keyframes arcade-pop{from{opacity:1;scale:.65}to{opacity:0;scale:1.4;translate:0 -30px}}
+@keyframes arcade-boom{from{transform:scale(.2) rotate(-12deg)}to{transform:scale(1) rotate(-4deg)}}
+@keyframes arcade-quake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@media(prefers-reduced-motion:reduce){.arcade-pop,.arcade-kaboom,.arcade-quake main{animation:none}}

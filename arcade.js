@@ -5,6 +5,7 @@
   if (!trigger) return;
   let hoverTimer, active = false, layer, ship, hud, score = 0;
   const hits = new Set();
+  let finishing = false, finaleTimer;
   let touchMode = false, press, suppressClickUntil = 0, frame, axis = 0, lastFrame = 0;
   trigger.addEventListener('pointerdown', event => {
     if (event.pointerType === 'mouse' || active) return;
@@ -45,6 +46,7 @@
     if (active) return;
     active = true;
     score = 0;
+    finishing = false;
     layer = document.createElement('div');
     touchMode = touchMode || matchMedia('(hover: none)').matches;
     layer.className = 'arcade-layer' + (touchMode ? ' arcade-touch' : '');
@@ -81,7 +83,7 @@
     fire();
   }
   function fire() {
-    if (!active) return;
+    if (!active || finishing) return;
     const x = ship.getBoundingClientRect().left + 20;
     const shipTop = ship.getBoundingClientRect().top;
     const laser = document.createElement('div');
@@ -90,18 +92,56 @@
     laser.style.bottom = (innerHeight - shipTop) + 'px';
     layer.append(laser);
     setTimeout(() => laser.remove(), 120);
+    let target = null;
     for (let y = shipTop - 4; y > 0; y -= 4) {
       const node = document.elementFromPoint(x, y);
-      if (!node || node.closest('.arcade-layer,.site-footer,.site-header,[hidden],.visually-hidden')) continue;
-      const target = node.closest('p,h1,h2,h3,h4,li,td,th,span,strong,em,a');
-      if (!target || !target.closest('main') || !target.textContent.trim() || target.querySelector('img,iframe,video,button,input')) continue;
-      if (hits.has(target)) continue;
-      target.classList.add('arcade-hit');
-      hits.add(target);
-      score += 10;
-      hud.textContent = `ANARKINO ARCADE · ${score} punti · ${touchMode ? 'Esci' : 'Esc'}: ripristina`;
+      if (!node || node.closest('.arcade-layer,.site-footer,.site-header,[hidden],.visually-hidden,.arcade-hit')) continue;
+      target = node.closest('img,picture,video,iframe,svg,.film-preview,.product-visual,h1,h2,h3,h4,h5,h6,p,li,td,th,span,strong,em,a,button,article,figure,section,div');
+      if (!target || !target.closest('main') || target.matches('main') || hits.has(target)) { target = null; continue; }
       break;
     }
+    // Even a missed shot charges the finale, so short pages can reach 666 too.
+    let points = 6;
+    if (target) {
+      const media = target.matches('img,picture,video,iframe,svg,.film-preview,.product-visual');
+      const heading = target.matches('h1,h2,h3,h4,h5,h6') || target.closest('h1,h2,h3,h4,h5,h6');
+      points = media ? 50 : heading ? 30 : target.matches('article,figure,section,div') ? 100 : 10;
+      const rect = target.getBoundingClientRect();
+      burst(Math.max(24, Math.min(innerWidth - 24, rect.left + rect.width / 2)), Math.max(30, rect.top + Math.min(rect.height / 2, 80)), '+' + points);
+      target.classList.add('arcade-hit');
+      hits.add(target);
+    }
+    score = Math.min(666, score + points);
+    hud.textContent = 'ANARKINO ARCADE · ' + score + '/666 · +' + points + ' · Esci / Esc: ripristina';
+    if (score === 666) kaboom();
+  }
+  function burst(x, y, text) {
+    const effect = document.createElement('div');
+    effect.className = 'arcade-pop';
+    effect.style.left = x + 'px';
+    effect.style.top = y + 'px';
+    effect.textContent = text;
+    layer.append(effect);
+    setTimeout(() => effect.remove(), 650);
+  }
+  function kaboom() {
+    finishing = true;
+    axis = 0;
+    cancelAnimationFrame(frame);
+    layer.classList.add('arcade-finale');
+    document.body.classList.add('arcade-quake');
+    const explosion = document.createElement('div');
+    explosion.className = 'arcade-kaboom';
+    explosion.setAttribute('role', 'alert');
+    const points = document.createElement('span');
+    points.textContent = '666points';
+    const over = document.createElement('span');
+    over.textContent = 'GameOver';
+    const boom = document.createElement('strong');
+    boom.textContent = 'Kaboom';
+    explosion.append(points, over, boom);
+    layer.append(explosion);
+    finaleTimer = setTimeout(stop, 2600);
   }
   function addControls() {
     const controls = document.createElement('div');
@@ -159,6 +199,9 @@
   }
   function stop() {
     cancel();
+    clearTimeout(finaleTimer);
+    document.body.classList.remove('arcade-quake');
+    finishing = false;
     active = false;
     cancelAnimationFrame(frame);
     axis = 0; lastFrame = 0; press = null; touchMode = false;
