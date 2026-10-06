@@ -8,7 +8,7 @@ window.anarkinoProducts = [
     "type": "hoodie",
     "description": "Taglia unica",
     "image": "/assets/felpabianca.jpg",
-    "price": "€ 37",
+    "price": "€ 47",
     "paymentLink": "",
     "available": false
   },
@@ -18,7 +18,7 @@ window.anarkinoProducts = [
     "type": "hoodie",
     "description": "Taglia unica",
     "image": "/assets/felpanera.jpg",
-    "price": "€ 37",
+    "price": "€ 47",
     "paymentLink": "",
     "available": false
   },
@@ -28,7 +28,7 @@ window.anarkinoProducts = [
     "type": "shirt",
     "description": "Taglia unica",
     "image": "/assets/magliettanera.jpg",
-    "price": "€ 21",
+    "price": "€ 31",
     "paymentLink": "",
     "available": false
   },
