@@ -28,7 +28,7 @@ if (year) {
   for (const digit of currentYear) {
     if (digit === '6') {
       const credit = document.createElement('a');
-      credit.href = 'https://cyberfreak.it/';
+      credit.href = 'https://melaniafilidei.com/';
       credit.className = 'year-credit';
       credit.textContent = digit;
       const label = document.createElement('span');

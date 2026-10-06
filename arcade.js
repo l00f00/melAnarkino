@@ -134,11 +134,11 @@
     explosion.className = 'arcade-kaboom';
     explosion.setAttribute('role', 'alert');
     const points = document.createElement('span');
-    points.textContent = '666points';
+    points.textContent = 'GAME OVER';
     const over = document.createElement('span');
-    over.textContent = 'GameOver';
+    over.textContent = 'congrats';
     const boom = document.createElement('strong');
-    boom.textContent = 'Kaboom';
+    boom.textContent = 'developed by Melania Filidei / l00f00';
     explosion.append(points, over, boom);
     layer.append(explosion);
     finaleTimer = setTimeout(stop, 2600);
