@@ -22,3 +22,23 @@ Il servizio `code-server` monta questa cartella, quindi le modifiche fatte dall'
 - sostituire i nomi segnaposto dei collaboratori con loghi autorizzati.
 
 I poster e le composizioni attuali sono grafiche locali di fallback, non fotografie reali.
+
+## Shop
+
+`shop-config.js` contiene il catalogo condiviso tra home (primi due prodotti) e
+`shop.html` (tutti i prodotti). Per ciascun prodotto impostare:
+
+- `id`: identificativo univoco; `name` e `description`: testi del prodotto;
+- `image`: percorso della foto definitiva, ad esempio `assets/felpa.webp`;
+- `price`: prezzo da mostrare, coerente con Stripe (es. `€ 35,00`);
+- `paymentLink`: URL HTTPS della pagina di pagamento Stripe;
+- `available`: impostare `true` solo quando il prodotto è pronto alla vendita.
+
+Il pulsante di acquisto si attiva solo con immagine, prezzo, disponibilità e un
+link su `buy.stripe.com` o `checkout.stripe.com`. Non inserire chiavi API o segreti.
+Prima di attivare le vendite configurare su Stripe taglie/varianti, raccolta
+indirizzo e costi di spedizione per i capi fisici, e pubblicare informazioni reali
+su consegna e resi nello shop. I pagamenti e la conferma ordine sono gestiti dalla
+pagina ospitata da Stripe; il sito non registra ordini e non verifica pagamenti.
+Aggiungere altri oggetti all'array per pubblicare nuovi prodotti nel catalogo.
+Le sagome attuali sono segnaposto grafici, non immagini dei prodotti definitivi.

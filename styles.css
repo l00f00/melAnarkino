@@ -24,4 +24,41 @@
 .workshop-card .workshop-cta[href]{pointer-events:auto!important;cursor:pointer}
 .workshop-detail-signup{border-top:1px dashed var(--line);margin-top:36px;padding-top:32px;text-align:center}.workshop-detail-signup-button{display:inline-flex;align-items:center;gap:18px;background:var(--yellow);color:var(--black);padding:16px 24px;text-decoration:none;font-size:.78rem;font-weight:900;letter-spacing:.12em}.workshop-detail-signup-button span{font-size:1.25rem}.workshop-detail-signup p{margin:14px 0 0;color:#bcb7ad;font-size:.82rem}.workshop-detail-signup-button:hover{background:var(--cream)}
 @media(max-width:800px){.workshop-detail-signup{margin-top:28px;padding-top:26px}.workshop-detail-signup-button{width:100%;justify-content:center}}
-@media(min-width:801px){.workshop-card .workshop-cta[href]{position:absolute;display:inline-flex;align-items:center;justify-content:center;width:max-content;padding:12px 18px;background:var(--yellow);border:2px solid var(--black);box-shadow:4px 4px 0 var(--red);color:var(--black);font-size:.72rem;font-weight:900;letter-spacing:.1em;line-height:1;text-decoration:none;transform:translate(-50%,-50%);z-index:30}.workshop-card .workshop-cta[href]:hover{background:var(--cream);transform:translate(-50%,-50%)}.workshop-horror .workshop-footer{position:static}.workshop-horror .workshop-cta[href]{left:50%;top:44%}.workshop-cinema .workshop-cta[href]{left:20.5%;top:38%}.workshop-acting .workshop-cta[href]{left:50%;top:45%}}
+@media(min-width:801px){.workshop-card .workshop-cta[href]{position:absolute;display:inline-flex;align-items:center;justify-content:center;width:max-content;padding:12px 18px;background:var(--yellow);border:2px solid var(--black);box-shadow:4px 4px 0 var(--red);color:var(--black);font-size:.72rem;font-weight:900;letter-spacing:.1em;line-height:1;text-decoration:none;transform:translate(-50%,-50%);z-index:30}.workshop-card .workshop-cta[href]:hover{background:var(--cream);transform:translate(-50%,-50%)}.workshop-horror .workshop-footer{position:static}.workshop-horror .workshop-cta[href]{left:50%;top:44%}.workshop-cinema .workshop-cta[href]{left:20.5%;top:25%}.workshop-acting .workshop-cta[href]{left:50%;top:45%}}
+
+/* Navigazione condivisa e shop */
+.site-header{position:relative;display:flex;align-items:center;gap:24px;transform:none;z-index:40}
+.site-header .brand{flex:1;min-width:0;font-size:clamp(2rem,10.8vw,9rem)}
+.navigation{flex:none}
+.navigation>summary{list-style:none;cursor:pointer;min-width:48px;min-height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;color:var(--yellow)}
+.navigation>summary::-webkit-details-marker{display:none}
+.hamburger{display:grid;gap:6px;width:30px}.hamburger i{height:2px;background:currentColor;display:block;transition:transform .2s}
+.navigation[open] .hamburger i:first-child{transform:translateY(8px) rotate(45deg)}
+.navigation[open] .hamburger i:nth-child(2){opacity:0}
+.navigation[open] .hamburger i:last-child{transform:translateY(-8px) rotate(-45deg)}
+.menu-label{font-size:.6rem;letter-spacing:.12em;text-transform:uppercase}
+.navigation-panel{position:absolute;top:100%;right:max(24px,calc((100vw - 1160px)/2));width:min(650px,calc(100vw - 48px));max-height:75vh;overflow:auto;display:grid;grid-template-columns:1fr 1fr;gap:28px;padding:28px;background:var(--black-2);border:1px solid var(--line);box-shadow:8px 8px 0 var(--red)}
+.navigation-panel p{color:var(--yellow);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 12px}
+.navigation-panel a{display:block;color:var(--cream);text-decoration:none;padding:10px 0;border-bottom:1px dashed var(--line);font-size:.95rem}
+.navigation-panel a:hover{color:var(--yellow)}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:5px}
+section[id]{scroll-margin-top:24px}
+.shop-section{padding-top:64px;padding-bottom:64px}.shop-heading{display:flex;justify-content:space-between;align-items:end;gap:24px}
+.shop-heading h2{font-family:var(--sans);font-weight:900;letter-spacing:.04em;color:var(--yellow)}
+.shop-intro{max-width:620px;color:#bcb7ad;font-size:1.1rem;margin:24px 0 36px}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.product-card{min-width:0;border:1px solid var(--line)}
+.product-visual{position:relative;aspect-ratio:4/3;background:var(--blue);display:grid;place-items:center;overflow:hidden}
+.product-card:nth-child(even) .product-visual{background:var(--red)}
+.product-photo{width:100%;height:100%;object-fit:contain;position:absolute;inset:0}
+.product-placeholder{position:absolute;bottom:14px;color:var(--black);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase}
+.garment{width:62%;height:72%;background:var(--black);display:grid;place-items:center;clip-path:polygon(28% 10%,40% 4%,60% 4%,72% 10%,100% 28%,87% 52%,74% 44%,76% 100%,24% 100%,26% 44%,13% 52%,0 28%);transform:rotate(-5deg)}
+.garment-hoodie{clip-path:polygon(36% 0,64% 0,70% 15%,83% 21%,100% 91%,82% 97%,71% 52%,74% 100%,26% 100%,29% 52%,18% 97%,0 91%,17% 21%,30% 15%);transform:rotate(5deg)}
+.garment span{font-size:clamp(.65rem,1.7vw,1.3rem);font-weight:900;letter-spacing:.08em;color:var(--cream)}
+.product-info{padding:28px}.product-info .eyebrow{margin-bottom:12px}.product-info h3{font-size:2rem;line-height:1.1}.product-description{color:#bcb7ad;min-height:3em}.product-price{font-weight:bold;color:var(--yellow)}
+.product-unavailable{border:1px solid var(--line);color:#bcb7ad;background:transparent;cursor:not-allowed}
+.shop-page{padding-top:36px;padding-bottom:72px}.shop-page h1{font-size:clamp(3.5rem,9vw,8rem)}
+.shop-help{margin-top:64px;border-top:1px dashed var(--line);padding-top:36px;max-width:760px}.shop-help h2{font-size:2.7rem;margin-bottom:28px}
+.shop-help details{border-bottom:1px solid var(--line);padding:18px 0}.shop-help summary{cursor:pointer;font-weight:bold}.shop-help p{color:#bcb7ad}.shop-help a,.site-footer a{color:var(--yellow)}
+@media(max-width:600px){.site-header{gap:12px;padding-left:18px;padding-right:18px}.site-header .brand{font-size:clamp(1.8rem,10vw,3.8rem);letter-spacing:.04em}.navigation-panel{right:18px;width:calc(100vw - 36px);grid-template-columns:1fr;gap:24px;padding:22px}.shop-heading{align-items:start;flex-direction:column}.product-grid{grid-template-columns:1fr}.shop-section{padding-top:44px;padding-bottom:44px}.product-info{padding:22px}.garment span{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
