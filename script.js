@@ -5,7 +5,10 @@ const closeMenu = (restoreFocus = false) => {
   if (restoreFocus) navigation.querySelector('summary').focus();
 };
 navigation?.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => closeMenu(true));
+  // Keep the link visible until the browser has performed its default navigation.
+  link.addEventListener('click', () => {
+    setTimeout(() => closeMenu(), 0);
+  });
 });
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') closeMenu(true);
@@ -13,8 +16,10 @@ document.addEventListener('keydown', event => {
 document.addEventListener('click', event => {
   if (navigation && !navigation.contains(event.target)) closeMenu();
 });
-navigation?.addEventListener('focusout', event => {
-  if (!navigation.contains(event.relatedTarget)) closeMenu();
+// A touch can blur the summary without focusing the link. Do not close on blur.
+// Close only when focus actually moves to another element outside the menu.
+document.addEventListener('focusin', event => {
+  if (navigation && !navigation.contains(event.target)) closeMenu();
 });
 const year = document.querySelector('#year');
 if (year) year.textContent = new Date().getFullYear();
