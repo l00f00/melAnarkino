@@ -83,3 +83,7 @@ section[id]{scroll-margin-top:24px}
 
 .film-preview-placeholder{display:grid;place-items:center;border:1px dashed var(--line)}
 .film-preview-placeholder span{color:var(--line);font-family:var(--sans);font-size:clamp(2rem,6vw,5rem);font-weight:900}
+
+/* Immagini portfolio complete, senza ritaglio e senza collegamenti esterni. */
+.film-preview-image{aspect-ratio:auto;background:transparent}
+.film-preview-image img{display:block;width:100%;height:auto}
