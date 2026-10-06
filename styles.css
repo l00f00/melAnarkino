@@ -62,3 +62,19 @@ section[id]{scroll-margin-top:24px}
 @media(min-width:601px) and (max-width:900px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.site-header{gap:12px;padding-left:18px;padding-right:18px}.site-header .brand{font-size:clamp(1.8rem,10vw,3.8rem);letter-spacing:.04em}.navigation-panel{right:18px;width:calc(100vw - 36px);grid-template-columns:1fr;gap:24px;padding:22px}.shop-heading{align-items:start;flex-direction:column}.product-grid{grid-template-columns:1fr}.shop-section{padding-top:44px;padding-bottom:44px}.product-info{padding:22px}.garment span{font-size:1rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
+
+/* Portfolio: anteprime YouTube privacy-enhanced, apertura esterna al clic. */
+.film-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:40px}
+.film-card{min-width:0;border-bottom:1px dashed var(--line)}
+.film-preview{position:relative;aspect-ratio:16/9;background:var(--black-2);isolation:isolate}
+.film-preview iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.film-open{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;color:var(--cream);text-decoration:none;background:linear-gradient(transparent 45%,rgba(0,0,0,.8))}
+.film-play{display:grid;place-items:center;width:62px;height:62px;padding-left:4px;border-radius:50%;background:var(--yellow);color:var(--black);font-size:1.3rem;box-shadow:5px 5px 0 var(--red);transition:transform .2s,background .2s}
+.film-open:hover .film-play,.film-open:focus-visible .film-play{transform:scale(1.1);background:var(--cream)}
+.film-open-label{position:absolute;bottom:14px;left:16px;font-size:.65rem;font-weight:bold;letter-spacing:.07em;text-transform:uppercase}
+.film-copy{padding:24px 0}.film-copy .eyebrow{margin-bottom:12px}.film-copy h3{font-size:clamp(1.6rem,2.5vw,2.2rem);line-height:1.1}.film-copy h3 a{color:var(--cream);text-decoration:none}.film-copy h3 a:hover{color:var(--yellow)}
+.film-external{font:1rem var(--sans);color:var(--yellow);white-space:nowrap}.film-author{color:#bcb7ad;font-size:.8rem;margin:16px 0 0}.film-author a{color:inherit;text-underline-offset:4px}
+.portfolio-more{display:flex;justify-content:center;margin-top:32px}.portfolio-page{padding-top:36px;padding-bottom:72px}.portfolio-page h1{font-size:clamp(3.5rem,9vw,8rem)}.portfolio-lead{max-width:620px;color:#bcb7ad;font-size:1.1rem}
+.portfolio-page .film-grid{grid-template-columns:1fr;gap:40px}.portfolio-page .film-card{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px;padding-bottom:40px;align-items:center}.portfolio-page .film-copy{padding:0}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+@media(max-width:800px){.film-grid{grid-template-columns:1fr;gap:30px}.portfolio-page .film-card{grid-template-columns:1fr;gap:22px;padding-bottom:28px}.film-copy h3{font-size:1.9rem}}
