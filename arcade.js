@@ -53,7 +53,7 @@
     hud = document.createElement('div');
     hud.className = 'arcade-hud';
     hud.setAttribute('role', 'status');
-    hud.textContent = touchMode ? 'ANARKINO ARCADE · Joystick ↔ muovi · ↕ scorri · Spara' : 'ANARKINO ARCADE · Mouse: muovi · Clic / Spazio: spara · Esc: ripristina';
+    hud.textContent = touchMode ? 'ANARKINO ARCADE · Joystick: ↔ muovi, ↑ risali, ↓ scendi · Spara' : 'ANARKINO ARCADE · Mouse: muovi · Rotella / trackpad / ↑ ↓: scorri anche verso l’alto · Clic / Spazio: spara · Esc: ripristina';
     ship = document.createElement('div');
     ship.className = 'arcade-ship';
     ship.setAttribute('aria-hidden', 'true');
@@ -86,6 +86,10 @@
   }
   function keyboard(event) {
     if (event.key === 'Escape') { event.preventDefault(); stop(); }
+    else if (['ArrowUp', 'ArrowDown'].includes(event.key) && !event.target.closest('input,textarea,select,[contenteditable]')) {
+      event.preventDefault();
+      window.scrollBy({ top: event.key === 'ArrowUp' ? -100 : 100, left: 0, behavior: 'instant' });
+    }
     else if (event.code === 'Space' && !event.repeat && !event.target.closest('input,textarea,select,[contenteditable]')) {
       event.preventDefault(); fire();
     }
@@ -127,7 +131,7 @@
       hits.add(target);
     }
     score = Math.min(666, score + points);
-    hud.textContent = 'ANARKINO ARCADE · ' + score + '/666 · +' + points + (touchMode ? ' · ↕ scorri' : ' · Esc: ripristina');
+    hud.textContent = 'ANARKINO ARCADE · ' + score + '/666 · +' + points + (touchMode ? ' · Joystick ↑ risali / ↓ scendi' : ' · Rotella / trackpad / ↑ ↓: scorri · Esc: ripristina');
     if (score === 666) kaboom();
   }
   function burst(x, y, text) {
