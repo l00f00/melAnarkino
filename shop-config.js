@@ -40,7 +40,7 @@ window.anarkinoProducts = [
     "image": "assets/horror.webp",
     "detailsLink": "workshop-horror.html",
     "price": "€ 120 a persona",
-    "priceNote": "Include € 10 di tesseramento AnarKino APS.",
+    "priceNote": "Include € 20 di tesseramento AnarKino APS.",
     "paymentLink": "",
     "available": false
   },
@@ -52,7 +52,7 @@ window.anarkinoProducts = [
     "image": "assets/base.webp",
     "detailsLink": "workshop-cinema.html",
     "price": "€ 120 a persona",
-    "priceNote": "Include € 10 di tesseramento AnarKino APS.",
+    "priceNote": "Include € 20 di tesseramento AnarKino APS.",
     "paymentLink": "",
     "available": false
   },
@@ -64,7 +64,7 @@ window.anarkinoProducts = [
     "image": "assets/recitazione.webp",
     "detailsLink": "workshop-acting.html",
     "price": "€ 120 a persona",
-    "priceNote": "Include € 10 di tesseramento AnarKino APS.",
+    "priceNote": "Include € 20 di tesseramento AnarKino APS.",
     "paymentLink": "",
     "available": false
   },
@@ -74,7 +74,7 @@ window.anarkinoProducts = [
     "type": "membership",
     "description": "La tessera associativa AnarKino APS, valida per l’anno in corso.",
     "image": "assets/tesseramento.jpg",
-    "price": "€ 10",
+    "price": "€ 20",
     "priceNote": "Già incluso nella quota dei workshop.",
     "paymentLink": "",
     "available": false
