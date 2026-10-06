@@ -25,7 +25,7 @@ I poster e le composizioni attuali sono grafiche locali di fallback, non fotogra
 
 ## Shop
 
-`shop-config.js` contiene il catalogo condiviso tra home (primi sei prodotti) e
+`shop-config.js` contiene il catalogo condiviso tra home (felpa bianca, t-shirt nera e tesseramento) e
 `shop.html` (tutti i prodotti). Per ciascun prodotto impostare:
 
 - `id`: identificativo univoco; `name` e `description`: testi del prodotto;

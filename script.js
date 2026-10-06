@@ -33,7 +33,7 @@ const stripeLink = value => {
 };
 document.querySelectorAll('[data-catalog]').forEach(grid => {
   const products = window.anarkinoProducts || [];
-  (grid.dataset.catalog === 'preview' ? products.slice(0, 6) : products).forEach(product => {
+  (grid.dataset.catalog === 'preview' ? products.filter(product => ['felpa-bianca', 'maglietta-nera', 'tesseramento'].includes(product.id)) : products).forEach(product => {
     const card = element('article', 'product-card');
     card.id = `product-${product.id}`;
     const visual = element('div', 'product-visual');

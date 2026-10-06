@@ -1,4 +1,4 @@
-// Catalogo condiviso: primi sei prodotti in homepage, catalogo completo nello shop.
+// Catalogo condiviso: felpa bianca, t-shirt nera e tesseramento in homepage, catalogo completo nello shop.
 // Per gli acquisti Stripe inserire paymentLink, price, image e available: true.
 // Configurare taglie e spedizioni su Stripe. Non inserire chiavi API o segreti.
 window.anarkinoProducts = [
