@@ -6,7 +6,7 @@
   let hoverTimer, active = false, layer, ship, hud, score = 0;
   const hits = new Set();
   let finishing = false, finaleTimer;
-  let touchMode = false, press, suppressClickUntil = 0, frame, axis = 0, lastFrame = 0;
+  let touchMode = false, press, suppressClickUntil = 0, frame, axis = 0, scrollAxis = 0, lastFrame = 0;
   trigger.addEventListener('pointerdown', event => {
     if (event.pointerType === 'mouse' || active) return;
     cancel();
@@ -53,17 +53,32 @@
     hud = document.createElement('div');
     hud.className = 'arcade-hud';
     hud.setAttribute('role', 'status');
-    hud.textContent = touchMode ? 'ANARKINO ARCADE · Joystick: muovi · Spara · Esci: ripristina' : 'ANARKINO ARCADE · Mouse: muovi · Clic / Spazio: spara · Esc: ripristina';
+    hud.textContent = touchMode ? 'ANARKINO ARCADE · Joystick ↔ muovi · ↕ scorri · Spara' : 'ANARKINO ARCADE · Mouse: muovi · Clic / Spazio: spara · Esc: ripristina';
     ship = document.createElement('div');
     ship.className = 'arcade-ship';
     ship.setAttribute('aria-hidden', 'true');
     ship.style.left = Math.max(0, innerWidth / 2 - 20) + 'px';
     layer.append(hud, ship);
     document.body.append(layer);
-    if (touchMode) addControls();
+    if (touchMode) {
+      fitViewport();
+      window.visualViewport?.addEventListener('resize', fitViewport);
+      window.visualViewport?.addEventListener('scroll', fitViewport);
+      window.addEventListener('resize', fitViewport);
+      addControls();
+    }
     document.addEventListener('pointermove', move);
     document.addEventListener('click', shoot, true);
     document.addEventListener('keydown', keyboard, true);
+  }
+  function fitViewport() {
+    if (!layer || !touchMode) return;
+    const viewport = window.visualViewport;
+    layer.style.inset = 'auto';
+    layer.style.left = (viewport?.offsetLeft || 0) + 'px';
+    layer.style.top = (viewport?.offsetTop || 0) + 'px';
+    layer.style.width = (viewport?.width || innerWidth) + 'px';
+    layer.style.height = (viewport?.height || innerHeight) + 'px';
   }
   function move(event) {
     if (touchMode || event.pointerType === 'touch') return;
@@ -89,7 +104,7 @@
     const laser = document.createElement('div');
     laser.className = 'arcade-laser';
     laser.style.left = x + 'px';
-    laser.style.bottom = (innerHeight - shipTop) + 'px';
+    laser.style.bottom = (layer.getBoundingClientRect().bottom - shipTop) + 'px';
     layer.append(laser);
     setTimeout(() => laser.remove(), 120);
     let target = null;
@@ -112,7 +127,7 @@
       hits.add(target);
     }
     score = Math.min(666, score + points);
-    hud.textContent = 'ANARKINO ARCADE · ' + score + '/666 · +' + points + ' · Esci / Esc: ripristina';
+    hud.textContent = 'ANARKINO ARCADE · ' + score + '/666 · +' + points + (touchMode ? ' · ↕ scorri' : ' · Esc: ripristina');
     if (score === 666) kaboom();
   }
   function burst(x, y, text) {
@@ -126,7 +141,7 @@
   }
   function kaboom() {
     finishing = true;
-    axis = 0;
+    axis = 0; scrollAxis = 0;
     cancelAnimationFrame(frame);
     layer.classList.add('arcade-finale');
     document.body.classList.add('arcade-quake');
@@ -149,7 +164,7 @@
     const joystick = document.createElement('div');
     joystick.className = 'arcade-joystick';
     joystick.setAttribute('role', 'group');
-    joystick.setAttribute('aria-label', 'Joystick: trascina a sinistra o destra');
+    joystick.setAttribute('aria-label', 'Joystick: sinistra e destra muovono la nave, alto e basso scorrono la pagina');
     const knob = document.createElement('span');
     knob.className = 'arcade-knob';
     knob.setAttribute('aria-hidden', 'true');
@@ -158,8 +173,13 @@
     const steer = event => {
       if (event.pointerId !== pointerId) return;
       const rect = joystick.getBoundingClientRect();
-      axis = Math.max(-1, Math.min(1, (event.clientX - rect.left - rect.width / 2) / 35));
-      knob.style.transform = 'translateX(' + axis * 28 + 'px)';
+      const radius = rect.width * .35;
+      const dx = (event.clientX - rect.left - rect.width / 2) / radius;
+      const dy = (event.clientY - rect.top - rect.height / 2) / radius;
+      const magnitude = Math.max(1, Math.hypot(dx, dy));
+      axis = Math.abs(dx) < .15 ? 0 : dx / magnitude;
+      scrollAxis = Math.abs(dy) < .15 ? 0 : dy / magnitude;
+      knob.style.transform = 'translate(' + axis * radius * .8 + 'px,' + scrollAxis * radius * .8 + 'px)';
     };
     joystick.addEventListener('pointerdown', event => {
       if (pointerId !== undefined) return;
@@ -170,7 +190,7 @@
     joystick.addEventListener('pointermove', steer);
     const release = event => {
       if (event.pointerId !== pointerId) return;
-      pointerId = undefined; axis = 0; knob.style.transform = '';
+      pointerId = undefined; axis = 0; scrollAxis = 0; knob.style.transform = '';
     };
     ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(type => joystick.addEventListener(type, release));
     const fireButton = document.createElement('button');
@@ -178,13 +198,7 @@
     fireButton.className = 'arcade-fire';
     fireButton.textContent = 'Spara';
     fireButton.addEventListener('click', fire);
-    const exit = document.createElement('button');
-    exit.type = 'button';
-    exit.className = 'arcade-exit';
-    exit.textContent = 'Esci';
-    exit.setAttribute('aria-label', 'Esci dal gioco e ripristina la pagina');
-    exit.addEventListener('click', stop);
-    controls.append(joystick, fireButton, exit);
+    controls.append(joystick, fireButton);
     layer.append(controls);
     lastFrame = 0;
     const tick = time => {
@@ -192,7 +206,8 @@
       const delta = lastFrame ? Math.min((time - lastFrame) / 1000, 0.05) : 0;
       lastFrame = time;
       const x = parseFloat(ship.style.left) + axis * 300 * delta;
-      ship.style.left = Math.max(0, Math.min(innerWidth - 40, x)) + 'px';
+      ship.style.left = Math.max(0, Math.min(layer.clientWidth - 40, x)) + 'px';
+      if (scrollAxis) window.scrollBy({ top: scrollAxis * 420 * delta, left: 0, behavior: 'instant' });
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
@@ -204,12 +219,15 @@
     finishing = false;
     active = false;
     cancelAnimationFrame(frame);
-    axis = 0; lastFrame = 0; press = null; touchMode = false;
+    axis = 0; scrollAxis = 0; lastFrame = 0; press = null; touchMode = false;
     document.removeEventListener('pointermove', move);
     document.removeEventListener('click', shoot, true);
     document.removeEventListener('keydown', keyboard, true);
     hits.forEach(node => node.classList.remove('arcade-hit'));
     hits.clear();
+    window.visualViewport?.removeEventListener('resize', fitViewport);
+    window.visualViewport?.removeEventListener('scroll', fitViewport);
+    window.removeEventListener('resize', fitViewport);
     layer?.remove();
   }
 })();

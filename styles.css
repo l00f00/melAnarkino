@@ -106,9 +106,8 @@ section[id]{scroll-margin-top:24px}
 .arcade-controls{position:absolute;left:18px;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:18px;pointer-events:none}
 .arcade-joystick{width:100px;height:100px;border:2px solid var(--yellow);border-radius:50%;background:var(--black);display:grid;place-items:center;pointer-events:auto;touch-action:none;user-select:none}
 .arcade-knob{width:42px;height:42px;border-radius:50%;background:var(--yellow)}
-.arcade-fire,.arcade-exit{pointer-events:auto;touch-action:manipulation;border:2px solid var(--yellow);background:var(--black);color:var(--yellow);min-height:48px;padding:12px 16px;font:900 .7rem var(--sans);text-transform:uppercase;cursor:pointer}
+.arcade-fire{pointer-events:auto;touch-action:manipulation;border:2px solid var(--yellow);background:var(--black);color:var(--yellow);min-height:48px;padding:12px 16px;font:900 .7rem var(--sans);text-transform:uppercase;cursor:pointer}
 .arcade-fire{margin-left:auto;border-radius:50%;width:78px;height:78px;background:var(--red);border-color:var(--red);color:var(--cream)}
-.arcade-exit{position:absolute;bottom:116px;right:0}
 
 /* Fumetto arcade: effetti temporanei, tutti ripristinati a fine partita. */
 .arcade-hit,.arcade-hit *{visibility:hidden!important}
@@ -125,3 +124,8 @@ section[id]{scroll-margin-top:24px}
 
 .arcade-kaboom>span:first-child{font-size:clamp(2rem,8vw,4.5rem);font-weight:900;color:var(--red)}
 .arcade-kaboom strong{font-size:clamp(.75rem,2.4vw,1.25rem);text-transform:none;text-shadow:none;letter-spacing:0;text-align:center;max-width:75%;line-height:1.4;color:var(--black)}
+
+.arcade-controls{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));gap:12px}
+.arcade-joystick{width:clamp(72px,22vw,100px);height:clamp(72px,22vw,100px);flex-shrink:0}
+.arcade-fire{width:clamp(64px,19vw,78px);height:clamp(64px,19vw,78px);flex-shrink:0}
+.arcade-touch .arcade-ship{bottom:calc(clamp(72px,22vw,100px) + max(16px,env(safe-area-inset-bottom,0px)) + 18px)}
