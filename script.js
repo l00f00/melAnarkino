@@ -33,7 +33,7 @@ const stripeLink = value => {
 };
 document.querySelectorAll('[data-catalog]').forEach(grid => {
   const products = window.anarkinoProducts || [];
-  (grid.dataset.catalog === 'preview' ? products.slice(0, 2) : products).forEach(product => {
+  (grid.dataset.catalog === 'preview' ? products.slice(0, 6) : products).forEach(product => {
     const card = element('article', 'product-card');
     card.id = `product-${product.id}`;
     const visual = element('div', 'product-visual');
@@ -51,12 +51,18 @@ document.querySelectorAll('[data-catalog]').forEach(grid => {
     }
     const info = element('div', 'product-info');
     const ready = product.available && product.price && product.image && stripeLink(product.paymentLink);
-    info.append(element('p', 'eyebrow', ready ? 'Disponibile' : 'In arrivo'), element('h3', '', product.name), element('p', 'product-description', product.description));
+    info.append(element('p', 'eyebrow', product.type === 'workshop' ? 'Workshop' : (ready ? 'Disponibile' : 'In arrivo')), element('h3', '', product.name), element('p', 'product-description', product.description));
     if (product.price) info.append(element('p', 'product-price', product.price));
+    if (product.priceNote) info.append(element('p', 'product-price-note', product.priceNote));
     if (ready) {
       const link = element('a', 'button button-light', 'Acquista su Stripe ↗');
       link.href = product.paymentLink;
       link.setAttribute('aria-label', `Acquista ${product.name} su Stripe`);
+      info.append(link);
+    } else if (product.detailsLink) {
+      const link = element('a', 'button button-light', 'Scopri il workshop ↗');
+      link.href = product.detailsLink;
+      link.setAttribute('aria-label', `Scopri il workshop ${product.name}`);
       info.append(link);
     } else {
       const button = element('button', 'button product-unavailable', 'Prossimamente');

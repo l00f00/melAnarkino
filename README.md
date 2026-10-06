@@ -25,7 +25,7 @@ I poster e le composizioni attuali sono grafiche locali di fallback, non fotogra
 
 ## Shop
 
-`shop-config.js` contiene il catalogo condiviso tra home (primi due prodotti) e
+`shop-config.js` contiene il catalogo condiviso tra home (primi sei prodotti) e
 `shop.html` (tutti i prodotti). Per ciascun prodotto impostare:
 
 - `id`: identificativo univoco; `name` e `description`: testi del prodotto;
@@ -41,4 +41,4 @@ indirizzo e costi di spedizione per i capi fisici, e pubblicare informazioni rea
 su consegna e resi nello shop. I pagamenti e la conferma ordine sono gestiti dalla
 pagina ospitata da Stripe; il sito non registra ordini e non verifica pagamenti.
 Aggiungere altri oggetti all'array per pubblicare nuovi prodotti nel catalogo.
-Le sagome attuali sono segnaposto grafici, non immagini dei prodotti definitivi.
+I workshop mostrano prezzo e tesseramento incluso e rimandano alle pagine dei corsi tramite `detailsLink` finché il pagamento Stripe non è attivo.
