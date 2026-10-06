@@ -100,3 +100,12 @@ section[id]{scroll-margin-top:24px}
 .arcade-ship{position:absolute;bottom:40px;width:40px;height:28px;background:var(--yellow);clip-path:polygon(0 100%,20% 60%,40% 60%,50% 0,60% 60%,80% 60%,100% 100%)}
 .arcade-laser{position:absolute;bottom:68px;top:0;width:3px;background:var(--red)}
 .arcade-hit{visibility:hidden!important}
+
+#year{-webkit-touch-callout:none;user-select:none}
+.arcade-touch .arcade-ship{bottom:calc(150px + env(safe-area-inset-bottom,0px))}
+.arcade-controls{position:absolute;left:18px;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:18px;pointer-events:none}
+.arcade-joystick{width:100px;height:100px;border:2px solid var(--yellow);border-radius:50%;background:var(--black);display:grid;place-items:center;pointer-events:auto;touch-action:none;user-select:none}
+.arcade-knob{width:42px;height:42px;border-radius:50%;background:var(--yellow)}
+.arcade-fire,.arcade-exit{pointer-events:auto;touch-action:manipulation;border:2px solid var(--yellow);background:var(--black);color:var(--yellow);min-height:48px;padding:12px 16px;font:900 .7rem var(--sans);text-transform:uppercase;cursor:pointer}
+.arcade-fire{margin-left:auto;border-radius:50%;width:78px;height:78px;background:var(--red);border-color:var(--red);color:var(--cream)}
+.arcade-exit{position:absolute;bottom:116px;right:0}
