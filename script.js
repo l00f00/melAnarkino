@@ -22,7 +22,23 @@ document.addEventListener('focusin', event => {
   if (navigation && !navigation.contains(event.target)) closeMenu();
 });
 const year = document.querySelector('#year');
-if (year) year.textContent = new Date().getFullYear();
+if (year) {
+  const currentYear = String(new Date().getFullYear());
+  year.replaceChildren();
+  for (const digit of currentYear) {
+    if (digit === '6') {
+      const credit = document.createElement('a');
+      credit.href = 'https://cyberfreak.it/';
+      credit.className = 'year-credit';
+      credit.textContent = digit;
+      const label = document.createElement('span');
+      label.className = 'visually-hidden';
+      label.textContent = ' — dev in collaboration l00f00/melania filidei';
+      credit.append(label);
+      year.append(credit);
+    } else year.append(document.createTextNode(digit));
+  }
+}
 
 const element = (tag, className, text) => {
   const node = document.createElement(tag);
@@ -64,15 +80,20 @@ document.querySelectorAll('[data-catalog]').forEach(grid => {
       link.href = product.paymentLink;
       link.setAttribute('aria-label', `Acquista ${product.name} su Stripe`);
       info.append(link);
-    } else if (product.detailsLink) {
+    }
+    if (product.detailsLink) {
       const link = element('a', 'button button-light', 'Scopri il workshop ↗');
       link.href = product.detailsLink;
       link.setAttribute('aria-label', `Scopri il workshop ${product.name}`);
       info.append(link);
-    } else {
-      const button = element('button', 'button product-unavailable', 'Prossimamente');
+    }
+    if (!ready) {
+      const pending = element('div', 'product-pending');
+      const button = element('button', 'button product-unavailable', 'Acquista');
       button.disabled = true;
-      info.append(button);
+      button.setAttribute('aria-label', 'Acquista ' + product.name + ' — Coming soon');
+      pending.append(button, element('span', 'coming-soon', 'Coming soon'));
+      info.append(pending);
     }
     card.append(visual, info);
     grid.append(card);
