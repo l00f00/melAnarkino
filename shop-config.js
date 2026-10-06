@@ -8,7 +8,7 @@ window.anarkinoProducts = [
     "type": "hoodie",
     "description": "Anarkino da portare con te, in bianco.",
     "image": "assets/felpabianca.jpg",
-    "price": "",
+    "price": "€ 37",
     "paymentLink": "",
     "available": false
   },
@@ -18,7 +18,7 @@ window.anarkinoProducts = [
     "type": "hoodie",
     "description": "Anarkino da portare con te, in nero.",
     "image": "assets/felpanera.jpg",
-    "price": "",
+    "price": "€ 37",
     "paymentLink": "",
     "available": false
   },
@@ -28,7 +28,7 @@ window.anarkinoProducts = [
     "type": "shirt",
     "description": "Un piccolo pezzo del nostro mondo, da indossare ogni giorno.",
     "image": "assets/magliettanera.jpg",
-    "price": "",
+    "price": "€ 21",
     "paymentLink": "",
     "available": false
   },
@@ -65,6 +65,17 @@ window.anarkinoProducts = [
     "detailsLink": "workshop-acting.html",
     "price": "€ 120 a persona",
     "priceNote": "Include € 10 di tesseramento AnarKino APS.",
+    "paymentLink": "",
+    "available": false
+  },
+  {
+    "id": "tesseramento",
+    "name": "Tesseramento AnarKino APS",
+    "type": "membership",
+    "description": "La tessera associativa AnarKino APS, valida per l’anno in corso.",
+    "image": "assets/tesseramento.jpg",
+    "price": "€ 10",
+    "priceNote": "Già incluso nella quota dei workshop.",
     "paymentLink": "",
     "available": false
   }
